@@ -3,14 +3,19 @@
 var projectile : GameObject;
 var startedShooting : boolean = false;
 var timeBetweenShots : float = 2.0;
-var isAlive : boolean = true;
 var inaccuracy : float = .2;
 
+var BrainObj : GameObject;
+private var Brain : EnemyBrain;
+var PartDamage : int = 1;
+var isBeingHit : boolean = false;
+
 function Start () {
+	Brain = BrainObj.GetComponent(EnemyBrain);
 }
 
 function OnTriggerEnter (other : Collider) {
-	if (other.gameObject.tag == "Player" && startedShooting == false && isAlive) {
+	if (other.gameObject.tag == "Player" && startedShooting == false && Brain.alive) {
 		startedShooting = true;
 		InvokeRepeating("LaunchProjectile", 0.1, timeBetweenShots);
 	}
@@ -31,23 +36,25 @@ function LaunchProjectile () {
 	var shotDirection : Vector3 = tempForward + Random.insideUnitSphere * inaccuracy;
 	var angle = Quaternion.FromToRotation (Vector3.up, shotDirection);	
 
-	var instance : GameObject = Instantiate(projectile, transform.position, angle);
-	//Debug.Log("Launched!");
-	//Debug.Log(shotDirection);
-    instance.transform.parent = transform;
-	instance.transform.localPosition = Vector3(0,0,0);
+	if (Brain.alive) {
+		var instance : GameObject = Instantiate(projectile, transform.position, angle);
+		//Debug.Log("Launched!");
+		//Debug.Log(shotDirection);
+	    instance.transform.parent = transform;
+		instance.transform.localPosition = Vector3(0,0,0);
 
-	//to detach from parent, once positioned
-	//instance.transform.parent = null;
-	
-	//instance.rigidbody.velocity = randRot;
-	//instance.rigidbody.velocity = PlayerLocation.pos;
-	instance.rigidbody.velocity = shotDirection;
+		//to detach from parent, once positioned
+		instance.transform.parent = null;
+		
+		//instance.rigidbody.velocity = randRot;
+		//instance.rigidbody.velocity = PlayerLocation.pos;
+		instance.rigidbody.velocity = shotDirection;
+	}
 }
 
 function StopLaunchingProjectile (dead : boolean) {
 	CancelInvoke("LaunchProjectile");
-	if (dead) {isAlive = false;}
+	//if (dead) {isAlive = false;}
 }
 
 function OnTriggerExit (other : Collider) {

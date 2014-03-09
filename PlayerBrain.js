@@ -33,17 +33,28 @@ function OnCollisionEnter (hit : Collision) {
 	}
 }
 
+function OnTriggerEnter (other : Collider) {
+	if (other.gameObject.tag == "ProjectileEnemy") {
+		hitDamage = other.gameObject.GetComponent(ProjectileDamage);		
+		ReduceHP(hitDamage.damage);
+	}
+}
+
 function ReceiveDamage (damageReceived : int, thisHit : Collision) {
-	totalDamage = totalDamage + damageReceived;
+	ReduceHP(damageReceived);
 	var thisHitObject : GameObject = Instantiate (hitMarker, hitPos, Quaternion.identity);
 	thisHitObject.transform.parent = transform;
 	thisHitObject.transform.rotation = Quaternion.FromToRotation (transform.up, hitNormal) * transform.rotation;
-	moveForwardScript.speed = .9 * moveForwardScript.speed;
+	//moveForwardScript.speed = .9 * moveForwardScript.speed;
 	thisHitObject.SetActive (false);
 	yield ShowShotDamage();
 	thisHitObject.SetActive (true);
-	if (totalDamage >= maxHP) {DestroyBody(); playerAlive = false;}
 
+}
+
+function ReduceHP (damageReceived : int) {
+	totalDamage = totalDamage + damageReceived;
+	if (totalDamage >= maxHP) {DestroyBody(); playerAlive = false;}
 }
 
 function DestroyBody() {

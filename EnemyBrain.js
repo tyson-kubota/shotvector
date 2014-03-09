@@ -44,10 +44,10 @@ function ReceiveDamage (damageReceived : int) {
 
 function DestroyBody() {
 	//BodyColor.FlashColors(0.5);
+	if (ShotLauncher) {ShotLauncher.StopLaunchingProjectile(true);}
 	BodyObject.SetActive(false);
 	BodyMeshCollider.SetActive(false);
 	ExplosionBody.SetActive(true);
-	ShotLauncher.StopLaunchingProjectile(true);
 	AddForceToExploded();
 	if (explodeChildren == true && hasAlreadyExploded == false) {
 		MultipleExplosions();
