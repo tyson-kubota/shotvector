@@ -28,12 +28,12 @@ function OnTriggerEnter (other : Collider) {
 // 	}
 // }
 
-// function OnBecameInVisible () {
-// 	if (startedShooting == true) {
-// 		StopLaunchingProjectile(false);
-// 		startedShooting = false;
-// 	}
-// }
+function OnBecameInvisible () {
+	if (startedShooting == true) {
+		StopLaunchingProjectile(false);
+		startedShooting = false;
+	}
+}
 
 function LaunchProjectile () {
 	//var angle = Quaternion.identity;
