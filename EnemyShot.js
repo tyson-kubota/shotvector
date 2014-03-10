@@ -21,6 +21,20 @@ function OnTriggerEnter (other : Collider) {
 	}
 }
 
+// function OnBecameVisible () {
+// 	if (startedShooting == false && Brain.alive) {
+// 		startedShooting = true;
+// 		InvokeRepeating("LaunchProjectile", 0.1, timeBetweenShots);
+// 	}
+// }
+
+// function OnBecameInVisible () {
+// 	if (startedShooting == true) {
+// 		StopLaunchingProjectile(false);
+// 		startedShooting = false;
+// 	}
+// }
+
 function LaunchProjectile () {
 	//var angle = Quaternion.identity;
 	//transform.forward = transform.forward + Random.insideUnitSphere * inaccuracy;
