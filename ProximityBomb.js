@@ -3,10 +3,13 @@ var BombMesh : GameObject;
 var detonationRange : float = 3000;
 var target : Transform;
 var ExplosionObject : GameObject;
+var alreadyExploded : boolean = false;
 
 function Update() {
-	if (target == null) {TargetSearch();}
-	else {Explode();}
+	if (alreadyExploded == false) {
+		if (target == null) {TargetSearch();}
+		else {TryExploding();}
+	}
 }
 
 function TargetSearch() {
@@ -20,10 +23,18 @@ function TargetSearch() {
 	}
 }
 
+function TryExploding () {
+	if (alreadyExploded == false) {Explode();}
+	else return;
+}
 function Explode () {
-	ExplosionObject.SetActive(true);
-	ExplosionObject.transform.parent = null;
-	
-	BombMesh.SetActive(false);
+	if (ExplosionObject == null) {return;}
+	else {
+		alreadyExploded = true;
+		ExplosionObject.SetActive(true);
+		ExplosionObject.transform.parent = null;
+		
+		BombMesh.SetActive(false);
+	}
 }
 
