@@ -62,7 +62,7 @@ function LaunchProjectile () {
 		
 		//instance.rigidbody.velocity = randRot;
 		//instance.rigidbody.velocity = PlayerLocation.pos;
-		instance.rigidbody.velocity = shotDirection;
+		if (instance.rigidbody) {instance.rigidbody.velocity = shotDirection;}
 	}
 }
 

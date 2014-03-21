@@ -6,6 +6,10 @@ var homingRange : float = 3000;
 var turn : float = 20;
 var target : Transform;
 
+function Start() {
+	projectile = transform;
+}
+
 function FixedUpdate()
 {
 	if(target == null || projectile == null)
