@@ -57,7 +57,7 @@ function OnTriggerEnter (other : Collider) {
 //function ReceiveDamage (damageReceived : int, thisHit : Collision) {
 function ReceiveDamage (damageReceived : int) {	
 	yield ReduceHP(damageReceived);
-	ShowCurrentHP(currentHP);
+	ShowCurrentHP(currentHP, true);
 	// if using individually-instantiated hit markers
 	// var thisHitObject : GameObject = Instantiate (hitMarker, hitPos, Quaternion.identity);
 	// thisHitObject.transform.parent = transform;
@@ -91,37 +91,39 @@ function ShowShotDamage() {
 	yield WaitForSeconds(0.1);
 }
 
-function ShowCurrentHP (currentHP : int) {
+function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 	HPRatio = ((currentHP*1.0) / maxHP);
 	
-	if (HPRatio >= .9) {
-	PctHP90.SetActive(true);
-	Debug.Log("HP is at 90 or higher");
-	}
-	else if (HPRatio >= .8) {
-	PctHP80.SetActive(true);
-	Debug.Log("HP is at 80 or higher");
-	}
-	else if (HPRatio >= .7) {
-	PctHP70.SetActive(true);
-	Debug.Log("HP is at 70 or higher");
-	}	
-	else if (HPRatio >= .6) {
-	PctHP60.SetActive(true);
-	}
-	else if (HPRatio >= .5) {
-	PctHP50.SetActive(true);
-	}
-	else if (HPRatio >= .4) {
-	PctHP40.SetActive(true);
-	}	
-	else if (HPRatio >= .3) {
-	PctHP30.SetActive(true);
-	}
-	else if (HPRatio >= .2) {
-	PctHP20.SetActive(true);
-	}
-	else if (HPRatio >= .1) {
-	PctHP10.SetActive(true);
+	if (activateMesh) {
+		if (HPRatio >= .9) {
+		PctHP90.SetActive(true);
+		Debug.Log("HP is at 90 or higher");
+		}
+		else if (HPRatio >= .8) {
+		PctHP80.SetActive(true);
+		Debug.Log("HP is at 80 or higher");
+		}
+		else if (HPRatio >= .7) {
+		PctHP70.SetActive(true);
+		Debug.Log("HP is at 70 or higher");
+		}	
+		else if (HPRatio >= .6) {
+		PctHP60.SetActive(true);
+		}
+		else if (HPRatio >= .5) {
+		PctHP50.SetActive(true);
+		}
+		else if (HPRatio >= .4) {
+		PctHP40.SetActive(true);
+		}	
+		else if (HPRatio >= .3) {
+		PctHP30.SetActive(true);
+		}
+		else if (HPRatio >= .2) {
+		PctHP20.SetActive(true);
+		}
+		else if (HPRatio >= .1) {
+		PctHP10.SetActive(true);
+		}
 	}
 }
