@@ -22,12 +22,14 @@ var PctHP60 : GameObject;
 var PctHP70 : GameObject;
 var PctHP80 : GameObject;
 var PctHP90 : GameObject;
-var HPRatio : float;
+static var HPRatio : float;
+static var HPColor : Color;
 
 var moveForwardScript : MoveForward;
 
 function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
+	HPColor = Color.white;
 }
 
 function OnCollisionEnter (hit : Collision) {
@@ -57,7 +59,13 @@ function OnTriggerEnter (other : Collider) {
 //function ReceiveDamage (damageReceived : int, thisHit : Collision) {
 function ReceiveDamage (damageReceived : int) {	
 	yield ReduceHP(damageReceived);
+	
+	// if using sequence of damaged player meshes
 	ShowCurrentHP(currentHP, true);
+	
+	// or just damaged color lerping
+	//ShowCurrentHP(currentHP, false);
+
 	// if using individually-instantiated hit markers
 	// var thisHitObject : GameObject = Instantiate (hitMarker, hitPos, Quaternion.identity);
 	// thisHitObject.transform.parent = transform;
@@ -87,13 +95,14 @@ function DestroyBody() {
 }
 	
 function ShowShotDamage() {
-	BodyColor.FlashColors(0.6);
+	BodyColor.FlashColorsPlayer(0.6);
 	yield WaitForSeconds(0.1);
 }
 
 function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 	HPRatio = ((currentHP*1.0) / maxHP);
-	
+	HPColor = HPColor * HPRatio;
+
 	if (activateMesh) {
 		if (HPRatio >= .9) {
 		PctHP90.SetActive(true);

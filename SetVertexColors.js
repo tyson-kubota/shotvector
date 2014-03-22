@@ -7,6 +7,7 @@ var origColor : Color;
 var burstColor : Color;
 
 var lerpableColor : Color;
+var healthColor : Color;
 
 var mesh : Mesh;
 var uv : Vector2[];
@@ -79,6 +80,30 @@ function FlashColors (timer : float) {
         yield;
                 
     	}
+
+    yield WaitForSeconds (timer);
+ 
+}
+
+function FlashColorsPlayer (timer : float) : IEnumerator {
+    
+    healthColor = Color.Lerp(burstColor, origColor, PlayerBrain.HPRatio);
+    //Debug.Log("healthColor is" + healthColor);
+
+    var colors : Color32[] = new Color32[uv.Length];
+
+    var start = healthColor;
+    var end = burstColor;
+    var i = 0.0;
+    var step = 1.0/timer;
+    
+    while (i <= 1.0) { 
+        i += step * Time.deltaTime;
+        lerpableColor = Color.Lerp(end, start, i);
+        gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+        yield;
+                
+        }
 
     yield WaitForSeconds (timer);
  
