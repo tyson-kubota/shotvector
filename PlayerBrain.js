@@ -13,6 +13,9 @@ var hitPos : Vector3;
 var hitNormal : Vector3;
 var hitDamage : ProjectileDamage;
 
+var HealthToAdd : HealthPowerup;
+var isAddingHealth : boolean = false;
+
 var PctHP10 : GameObject;
 var PctHP20 : GameObject;
 var PctHP30 : GameObject;
@@ -34,7 +37,7 @@ function Start () {
 
 function OnCollisionEnter (hit : Collision) {
 	//Debug.Log("I got hit!");
-	if (hit.gameObject.tag == "ProjectileEnemy") {
+	if ((hit.gameObject.tag == "ProjectileEnemy") && (!isAddingHealth)) {
 		//Debug.Log("I got hit by an enemy shot!");
 		//if (playerAlive == true) {HitBurst();}
 		hitDamage = hit.gameObject.GetComponent(ProjectileDamage);
@@ -49,12 +52,17 @@ function OnCollisionEnter (hit : Collision) {
 }
 
 function OnTriggerEnter (other : Collider) {
-	if (other.gameObject.tag == "ProjectileEnemy") {
+	if (other.gameObject.tag == "HealthPowerup") {
+		HealthToAdd = other.gameObject.GetComponent(HealthPowerup);
+		if (HealthToAdd) {AddHealth(HealthToAdd.nutrition);}
+	}	
+	else if ((other.gameObject.tag == "ProjectileEnemy") && (!isAddingHealth)) {
 		hitDamage = other.gameObject.GetComponent(ProjectileDamage);
 
 		if (hitDamage) {ReceiveDamage(hitDamage.damage);}
 		Destroy(other.gameObject, 1.0);
 	}
+
 }
 
 //function ReceiveDamage (damageReceived : int, thisHit : Collision) {
@@ -86,6 +94,14 @@ function ReduceHP (damageReceived : int) {
 	currentHP = maxHP - totalDamage;
 	if (currentHP <= 0) {DestroyBody(); playerAlive = false;}
 	yield;
+}
+
+function AddHealth (health : int) {
+	isAddingHealth = true;
+	currentHP = Mathf.Min(maxHP, (currentHP + health));
+	ShowCurrentHP(currentHP, true);
+	yield ShowShotDamage();
+	isAddingHealth = false;
 }
 
 function DestroyBody() {
