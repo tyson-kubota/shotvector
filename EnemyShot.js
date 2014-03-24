@@ -54,9 +54,13 @@ function LaunchProjectile () {
 	var angle = Quaternion.FromToRotation (Vector3.up, shotDirection);	
 
 	if (Brain.alive) {
-		var instance : GameObject = Instantiate(projectile, transform.position, angle);
+		//var instance : GameObject = Instantiate(projectile, transform.position, angle);
+		var instance : GameObject = PoolManager.Spawn(projectile.name);
+		
 		//Debug.Log("Launched!");
 		//Debug.Log(shotDirection);
+		instance.transform.position = transform.position;
+		instance.transform.rotation = angle;
 	    instance.transform.parent = transform;
 		instance.transform.localPosition = Vector3(0,0,0);
 

@@ -72,7 +72,12 @@ function Update () {
 					
 					if (Time.time > nextFire) {
 	     				nextFire = Time.time + fireRate;						
-						var Shot = Instantiate (particle, transform.position, angle);
+						//var Shot = Instantiate (particle, transform.position, angle);
+						var Shot = PoolManager.Spawn(particle.name);
+
+						Shot.transform.position = transform.position;
+						Shot.transform.rotation = angle;
+						
 						//Shot.rigidbody.AddRelativeForce(shotDirection);
 						
 						// ShowShotBurst disabled in order to show damage instead
