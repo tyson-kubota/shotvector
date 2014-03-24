@@ -72,7 +72,9 @@ function LerpTime (slowing : boolean, timer : float) {
         i += step * Time.deltaTime;
         Time.timeScale = Mathf.Lerp(start, end, i);
         Time.fixedDeltaTime = Mathf.Lerp(physStart, physEnd, i);
+        #if UNITY_EDITOR
         Debug.Log("my timescale is " + Time.timeScale);
+        #endif
         yield;
                 
     	}

@@ -117,15 +117,15 @@ function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 
 		if (HPRatio >= .9) {
 		PctHP90.SetActive(true);
-		Debug.Log("HP is at 90 or higher");
+		//Debug.Log("HP is at 90 or higher");
 		}
 		else if (HPRatio >= .8) {
 		PctHP80.SetActive(true);
-		Debug.Log("HP is at 80 or higher");
+		//Debug.Log("HP is at 80 or higher");
 		}
 		else if (HPRatio >= .7) {
 		PctHP70.SetActive(true);
-		Debug.Log("HP is at 70 or higher");
+		//Debug.Log("HP is at 70 or higher");
 		}	
 		else if (HPRatio >= .6) {
 		PctHP60.SetActive(true);
@@ -144,6 +144,9 @@ function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 		}
 		else if (HPRatio >= .1) {
 		PctHP10.SetActive(true);
+		#if UNITY_EDITOR
+			Debug.Log("HP is at 70 or higher");
+		#endif
 		}
 	}
 

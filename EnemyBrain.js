@@ -52,7 +52,9 @@ function DestroyBody() {
 	if (explodeChildren == true && hasAlreadyExploded == false) {
 		MultipleExplosions();
 		hasAlreadyExploded = true;		
+		#if UNITY_EDITOR
 		Debug.Log("sent explosion message");
+		#endif
 		//explodeParent.SendMessage("DestroyChildren", SendMessageOptions.DontRequireReceiver);
 	}
 }
@@ -82,7 +84,9 @@ function MultipleExplosions() {
         if (hit.rigidbody){
         	yield WaitForSeconds(explodeDelay);
 			hit.gameObject.SendMessage("DestroyBody", SendMessageOptions.DontRequireReceiver );
+			#if UNITY_EDITOR
 			Debug.Log("Triggered multiple explosions");
+			#endif
 		}
 		//hit.collider.gameObject.SendMessage("DestroyBody", SendMessageOptions.DontRequireReceiver);
 	}
