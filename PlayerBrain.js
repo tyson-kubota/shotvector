@@ -50,9 +50,10 @@ function OnCollisionEnter (hit : Collision) {
 
 function OnTriggerEnter (other : Collider) {
 	if (other.gameObject.tag == "ProjectileEnemy") {
-		hitDamage = other.gameObject.GetComponent(ProjectileDamage);		
-		//ReduceHP(hitDamage.damage);
-		ReceiveDamage(hitDamage.damage);
+		hitDamage = other.gameObject.GetComponent(ProjectileDamage);
+
+		if (hitDamage) {ReceiveDamage(hitDamage.damage);}
+		Destroy(other.gameObject, 1.0);
 	}
 }
 
@@ -104,6 +105,16 @@ function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 	HPColor = HPColor * HPRatio;
 
 	if (activateMesh) {
+		PctHP90.SetActive(false);
+		PctHP80.SetActive(false);
+		PctHP70.SetActive(false);
+		PctHP60.SetActive(false);
+		PctHP50.SetActive(false);
+		PctHP40.SetActive(false);
+		PctHP30.SetActive(false);
+		PctHP20.SetActive(false);
+		PctHP10.SetActive(false);
+
 		if (HPRatio >= .9) {
 		PctHP90.SetActive(true);
 		Debug.Log("HP is at 90 or higher");
@@ -135,4 +146,11 @@ function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 		PctHP10.SetActive(true);
 		}
 	}
+
+	// for (var child : GameObject in transform.parent) {
+ //        if (child.name != this.name)
+ //        {
+ //            Debug.Log ("Found sibling "+child.name);
+ //        }
+ //    }	
 }
