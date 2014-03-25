@@ -90,15 +90,16 @@ function ReceiveDamage (damageReceived : int) {
 }
 
 function ReduceHP (damageReceived : int) {
-	totalDamage = totalDamage + damageReceived;
-	currentHP = maxHP - totalDamage;
-	if (currentHP <= 0) {DestroyBody(); playerAlive = false;}
+	//totalDamage = totalDamage + damageReceived;
+	currentHP = currentHP - damageReceived;
+	if (currentHP <= 0) {currentHP = 0; DestroyBody(); playerAlive = false;}
 	yield;
 }
 
 function AddHealth (health : int) {
 	isAddingHealth = true;
 	currentHP = Mathf.Min(maxHP, (currentHP + health));
+	//totalDamage = totalDamage - health;
 	ShowCurrentHP(currentHP, true);
 	yield ShowShotDamage();
 	isAddingHealth = false;
@@ -131,38 +132,42 @@ function ShowCurrentHP (currentHP : int, activateMesh : boolean) {
 		PctHP20.SetActive(false);
 		PctHP10.SetActive(false);
 
-		if (HPRatio >= .9) {
-		PctHP90.SetActive(true);
-		//Debug.Log("HP is at 90 or higher");
+		if (HPRatio == 1.0) {
+			return;
+		}
+
+		else if (HPRatio >= .9) {
+			PctHP90.SetActive(true);
+			//Debug.Log("HP is at 90 or higher");
 		}
 		else if (HPRatio >= .8) {
-		PctHP80.SetActive(true);
-		//Debug.Log("HP is at 80 or higher");
+			PctHP80.SetActive(true);
+			//Debug.Log("HP is at 80 or higher");
 		}
 		else if (HPRatio >= .7) {
-		PctHP70.SetActive(true);
-		//Debug.Log("HP is at 70 or higher");
+			PctHP70.SetActive(true);
+			//Debug.Log("HP is at 70 or higher");
 		}	
 		else if (HPRatio >= .6) {
-		PctHP60.SetActive(true);
+			PctHP60.SetActive(true);
 		}
 		else if (HPRatio >= .5) {
-		PctHP50.SetActive(true);
+			PctHP50.SetActive(true);
 		}
 		else if (HPRatio >= .4) {
-		PctHP40.SetActive(true);
+			PctHP40.SetActive(true);
 		}	
 		else if (HPRatio >= .3) {
-		PctHP30.SetActive(true);
+			PctHP30.SetActive(true);
 		}
 		else if (HPRatio >= .2) {
-		PctHP20.SetActive(true);
+			PctHP20.SetActive(true);
 		}
 		else if (HPRatio >= .1) {
-		PctHP10.SetActive(true);
-		#if UNITY_EDITOR
-			Debug.Log("HP is at 70 or higher");
-		#endif
+			PctHP10.SetActive(true);
+			#if UNITY_EDITOR
+				Debug.Log("HP is at 10 or higher");
+			#endif
 		}
 	}
 

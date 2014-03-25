@@ -59,6 +59,7 @@ function LaunchProjectile () {
 		
 		//Debug.Log("Launched!");
 		//Debug.Log(shotDirection);
+		instance.rigidbody.isKinematic = true;
 		instance.transform.position = transform.position;
 		instance.transform.rotation = angle;
 	    instance.transform.parent = transform;
@@ -67,6 +68,7 @@ function LaunchProjectile () {
 		//to detach from parent, once positioned
 		instance.transform.parent = null;
 		
+		instance.rigidbody.isKinematic = false;
 		//instance.rigidbody.velocity = randRot;
 		//instance.rigidbody.velocity = PlayerLocation.pos;
 		if (instance.rigidbody) {instance.rigidbody.velocity = shotDirection;}
