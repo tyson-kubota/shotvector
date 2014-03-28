@@ -13,6 +13,8 @@ var hitPos : Vector3;
 var hitNormal : Vector3;
 var hitDamage : ProjectileDamage;
 
+var myPoolObject : PoolObject;
+
 var HealthToAdd : HealthPowerup;
 var isAddingHealth : boolean = false;
 
@@ -41,13 +43,19 @@ function OnCollisionEnter (hit : Collision) {
 		//Debug.Log("I got hit by an enemy shot!");
 		//if (playerAlive == true) {HitBurst();}
 		hitDamage = hit.gameObject.GetComponent(ProjectileDamage);
+		
 		if (hitDamage) {
 			hitPos = hit.contacts[0].point;
 			hitNormal = hit.contacts[0].normal;
 			//ReceiveDamage(hitDamage.damage, hit);
 			ReceiveDamage(hitDamage.damage);
 		}
-		Destroy(hit.gameObject);
+
+		myPoolObject = hit.gameObject.GetComponent(PoolObject);
+
+		//if (myPoolObject) {myPoolObject.gameObject.SetActive (false);}
+		//else {Destroy(hit.gameObject);}
+
 	}
 }
 
@@ -60,7 +68,11 @@ function OnTriggerEnter (other : Collider) {
 		hitDamage = other.gameObject.GetComponent(ProjectileDamage);
 
 		if (hitDamage) {ReceiveDamage(hitDamage.damage);}
-		Destroy(other.gameObject, 1.0);
+
+		myPoolObject = other.gameObject.GetComponent(PoolObject);
+
+		//if (myPoolObject) {myPoolObject.gameObject.SetActive (false);}
+		//else {Destroy(other.gameObject, 1.0);}
 	}
 
 }

@@ -56,7 +56,7 @@ function Update () {
 					//reticleChevrons.transform.localPosition = Vector3(myVector.x, myVector.y, reticleCamera.nearClipPlane);
 
 					#if UNITY_EDITOR
-					Debug.DrawLine (ray.origin, hit.point, Color.yellow, 10, false);					
+					Debug.DrawLine (ray.origin, hit.point, Color.yellow, .2, false);			
 					//Debug.Log("Hit at " + hit.point);
 					//Debug.Log("You hit " + hit.transform.name);
 					//if (hit.transform.gameObject.tag == "Projectile") {return;}
