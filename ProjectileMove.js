@@ -70,10 +70,13 @@ function FixedUpdate () {
 
 function TrailPool() {
 	countingDown = true;
-	myTrailTime = (origTrailTime * .5);
+	myTrailTime = origTrailTime;
 	//yield WaitForSeconds(myTrailTime/2);
 	//LerpTrail(myTrailTime/2);
-	LerpTrail(myTrailTime);
+
+	// myTrail.time = 0.0;
+	// yield WaitForSeconds(myTrailTime/2);
+	// LerpTrail(myTrailTime/2);
 }
 
 function LerpTrail (timer : float) {
@@ -95,5 +98,4 @@ function LerpTrail (timer : float) {
 
     yield WaitForSeconds (timer);
     countingDown = false;
-    Debug.Log("Hi! set your countingDown debug flag to false.");
 }
