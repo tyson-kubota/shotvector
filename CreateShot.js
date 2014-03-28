@@ -3,7 +3,11 @@
 var myMesh : GameObject;
 
 function Start () {
-	CreateShot();
+	//CreateShot();
+}
+
+function OnEnable () {
+	//CreateShot();
 }
 
 function CreateShot () {

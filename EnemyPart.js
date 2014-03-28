@@ -8,6 +8,7 @@ var PartDamage : int = 1;
 var isBeingHit : boolean = false;
 var myPoolObject : PoolObject;
 var myTrailObject : TrailRenderer;
+var myShotObject : CreateShot;
 
 function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
@@ -28,10 +29,9 @@ function OnTriggerEnter (other : Collider) {
 
 		myPoolObject = other.gameObject.GetComponent(PoolObject);
 		myTrailObject = other.gameObject.GetComponent(TrailRenderer);
+		myShotObject = other.gameObject.GetComponent(CreateShot);
 		if (myPoolObject) {
-			if (myTrailObject) {
-				myTrailObject.time = 0.0;
-			}
+			myShotObject.myMesh.renderer.enabled = false;
 			//myPoolObject.gameObject.SetActive (false);
 		}
 		else {Destroy(other.gameObject);}
@@ -47,10 +47,9 @@ function OnCollisionEnter (hit : Collision) {
 
 		myPoolObject = hit.gameObject.GetComponent(PoolObject);
 		myTrailObject = hit.gameObject.GetComponent(TrailRenderer);
+		myShotObject = hit.gameObject.GetComponent(CreateShot);
 		if (myPoolObject) {
-			if (myTrailObject) {
-				myTrailObject.time = 0.0;
-			}
+			myShotObject.myMesh.renderer.enabled = false;
 			//myPoolObject.gameObject.SetActive (false);
 		}
 		else {Destroy(hit.gameObject);}

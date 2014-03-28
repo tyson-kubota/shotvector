@@ -14,6 +14,7 @@ var hitNormal : Vector3;
 var hitDamage : ProjectileDamage;
 
 var myPoolObject : PoolObject;
+var myShotObject : CreateShot;
 
 var HealthToAdd : HealthPowerup;
 var isAddingHealth : boolean = false;
@@ -52,9 +53,13 @@ function OnCollisionEnter (hit : Collision) {
 		}
 
 		myPoolObject = hit.gameObject.GetComponent(PoolObject);
-
-		//if (myPoolObject) {myPoolObject.gameObject.SetActive (false);}
-		//else {Destroy(hit.gameObject);}
+		myShotObject = hit.gameObject.GetComponent(CreateShot);
+		
+		if (myPoolObject) {
+			myShotObject.myMesh.renderer.enabled = false;
+			hitDamage.enabled = false;
+		}
+		else {Destroy(hit.gameObject);}
 
 	}
 }
@@ -70,9 +75,14 @@ function OnTriggerEnter (other : Collider) {
 		if (hitDamage) {ReceiveDamage(hitDamage.damage);}
 
 		myPoolObject = other.gameObject.GetComponent(PoolObject);
-
-		//if (myPoolObject) {myPoolObject.gameObject.SetActive (false);}
-		//else {Destroy(other.gameObject, 1.0);}
+		myShotObject = other.gameObject.GetComponent(CreateShot);
+		
+		if (myPoolObject) {
+			//Trigger-projectiles should keep going, not disappear immediately
+			//myShotObject.myMesh.renderer.enabled = false;
+			hitDamage.enabled = false;
+		}
+		else {Destroy(other.gameObject);}
 	}
 
 }
