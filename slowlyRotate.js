@@ -10,7 +10,8 @@ function Start () {
 
 function FixedUpdate () {
 	//if (shouldRotate == true) {myTransform.Rotate(Vector3.up * (dir*3) * Time.deltaTime, Space.World);}
-	if (shouldRotate == true) {myTransform.Rotate(Vector3.up * speed, Space.World);}
+	//if (shouldRotate == true) {myTransform.Rotate(Vector3.up * speed, Space.World);}
+	if (shouldRotate == true) {myTransform.Rotate(Vector3.up * speed);}
 }
 
 // toggles rotation based on object visibility

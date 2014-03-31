@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 var removeTime : float = 10.0;
-var myObject : GameObject;
+private var myObject : GameObject;
 var randomExpiry : boolean = false;
 var myPoolObject : PoolObject;
 var countingDown : boolean = false;
@@ -23,7 +23,7 @@ function Start () {
 
 function SetCompletion() {
 	yield WaitForSeconds (removeTime);
-	Debug.Log(gameObject.name + " completely despawned!");
+	//Debug.Log(gameObject.name + " completely despawned!");
 	countingDown = false;
 	PoolManager.Despawn(myPoolObject.gameObject);
 }

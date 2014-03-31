@@ -31,7 +31,8 @@ function OnTriggerEnter (other : Collider) {
 		myTrailObject = other.gameObject.GetComponent(TrailRenderer);
 		myShotObject = other.gameObject.GetComponent(CreateShot);
 		if (myPoolObject) {
-			myShotObject.myMesh.renderer.enabled = false;
+			if (myShotObject.myMesh.renderer) {myShotObject.myMesh.renderer.enabled = false;}
+			else {myShotObject.gameObject.SetActive(false);}
 			//myPoolObject.gameObject.SetActive (false);
 		}
 		else {Destroy(other.gameObject);}
