@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 var BodyMesh : GameObject;
 var BodyColor : SetVertexColors;
@@ -15,6 +15,9 @@ var hitDamage : ProjectileDamage;
 
 var myPoolObject : PoolObject;
 var myShotObject : CreateShot;
+
+var PlayerShooter : PlayerShot;
+var ShotUpgrade : ShotPowerup;
 
 var HealthToAdd : HealthPowerup;
 var isAddingHealth : boolean = false;
@@ -68,7 +71,11 @@ function OnTriggerEnter (other : Collider) {
 	if (other.gameObject.tag == "HealthPowerup") {
 		HealthToAdd = other.gameObject.GetComponent(HealthPowerup);
 		if (HealthToAdd) {AddHealth(HealthToAdd.nutrition);}
-	}	
+	}
+	if (other.gameObject.tag == "ShotPowerup") {
+		ShotUpgrade = other.gameObject.GetComponent(ShotPowerup);
+		if (ShotUpgrade) {UpgradeShot(ShotUpgrade.newShot);}
+	}
 	else if ((other.gameObject.tag == "ProjectileEnemy") && (!isAddingHealth)) {
 		hitDamage = other.gameObject.GetComponent(ProjectileDamage);
 
@@ -123,6 +130,13 @@ function AddHealth (health : int) {
 	currentHP = Mathf.Min(maxHP, (currentHP + health));
 	//totalDamage = totalDamage - health;
 	ShowCurrentHP(currentHP, true);
+	yield ShowShotDamage();
+	isAddingHealth = false;
+}
+
+function UpgradeShot (newShot : GameObject) {
+	isAddingHealth = true;
+	PlayerShooter.particle = newShot;
 	yield ShowShotDamage();
 	isAddingHealth = false;
 }
