@@ -137,7 +137,11 @@ function AddHealth (health : int) {
 function UpgradeShot (newShot : GameObject) {
 	isAddingHealth = true;
 	PlayerShooter.particle = newShot;
-	yield ShowShotDamage();
+	//if new weapon comes with modified fireRate, set it here 
+	//(via boolean for ChangeFireRate).
+	//start timer for new firerate here (store previous weapon and revert to it at end)
+	//perform any physical consequences/animations/new mesh enabling too!
+	//yield ShowShotDamage();
 	isAddingHealth = false;
 }
 

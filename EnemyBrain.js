@@ -39,6 +39,11 @@ function OnCollisionEnter (hit : Collision) {
 
 function ReceiveDamage (damageReceived : int) {
 	totalDamage = totalDamage + damageReceived;
+	
+	#if UNITY_EDITOR
+		Debug.Log("Receiving " + damageReceived + " points of damage.");
+	#endif
+
 	if (totalDamage >= MyHP) {DestroyBody(); alive = false;}
 }
 

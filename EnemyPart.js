@@ -25,7 +25,9 @@ function OnTriggerEnter (other : Collider) {
 	if (other.gameObject.tag == "Projectile") {
 		if (Brain.alive == true) {HitBurst();}
 		isBeingHit = true;
-		DamageToBrain(PartDamage);
+//		DamageToBrain(PartDamage);
+		var tempDamage = other.gameObject.GetComponent(ProjectileDamage);
+		DamageToBrain(Mathf.Max(PartDamage, tempDamage.damage));
 
 		myPoolObject = other.gameObject.GetComponent(PoolObject);
 		myTrailObject = other.gameObject.GetComponent(TrailRenderer);
@@ -44,7 +46,9 @@ function OnCollisionEnter (hit : Collision) {
 	if (hit.gameObject.tag == "Projectile") {
 		if (Brain.alive == true) {HitBurst();}
 		isBeingHit = true;
-		DamageToBrain(PartDamage);
+//		DamageToBrain(PartDamage);
+		var tempDamage = hit.gameObject.GetComponent(ProjectileDamage);
+		DamageToBrain(Mathf.Max(PartDamage, tempDamage.damage));
 
 		myPoolObject = hit.gameObject.GetComponent(PoolObject);
 		myTrailObject = hit.gameObject.GetComponent(TrailRenderer);
