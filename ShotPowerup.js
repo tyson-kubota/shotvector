@@ -2,6 +2,7 @@
 
 var newShot : GameObject;
 var particleDuration : float = 4.0;
+var powerupShell : GameObject;
 
 function Start () {
 }
@@ -15,6 +16,9 @@ function OnTriggerEnter (other : Collider) {
 		if (transform.particleSystem) {
 			Particles(transform.particleSystem); 
 			transform.renderer.enabled = false;
+		}
+		if (powerupShell.renderer) {
+			powerupShell.renderer.enabled = false;
 		}
 	}
 
