@@ -3,6 +3,8 @@
 var newShot : GameObject;
 var particleDuration : float = 4.0;
 var powerupShell : GameObject;
+var ChangeFireRate : boolean = false;
+var upgradeFireRate : float = 1.0;
 
 function Start () {
 }

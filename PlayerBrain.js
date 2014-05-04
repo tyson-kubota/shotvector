@@ -19,6 +19,8 @@ var myShotObject : CreateShot;
 
 var PlayerShooter : PlayerShot;
 var ShotUpgrade : ShotPowerup;
+var myFireRate : float;
+var upgradedFireRate : float;
 
 var HealthToAdd : HealthPowerup;
 var isAddingHealth : boolean = false;
@@ -40,6 +42,7 @@ var moveForwardScript : MoveForward;
 function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	HPColor = Color.white;
+	myFireRate = PlayerShooter.fireRate;
 	if (transform.particleSystem) {
 		myParticles = transform.particleSystem;
 	}
@@ -144,6 +147,11 @@ function UpgradeShot (newShot : GameObject) {
 	PlayerShooter.particle = newShot;
 	//if new weapon comes with modified fireRate, set it here 
 	//(via boolean for ChangeFireRate).
+	if (ShotUpgrade.ChangeFireRate) {
+		upgradedFireRate = ShotUpgrade.upgradeFireRate;
+		PlayerShooter.fireRate = upgradedFireRate;
+		Debug.Log("time to upgrade to " + upgradedFireRate);
+	}
 	//start timer for new firerate here (store previous weapon and revert to it at end)
 	//perform any physical consequences/animations/new mesh enabling too!
 	//yield ShowShotDamage();

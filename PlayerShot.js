@@ -28,7 +28,7 @@ function Start () {
 function Update () {
 
 	if (Time.timeScale < 1.0) {fireRate = (origFireRate * 2 * Time.timeScale);}
-	else {fireRate = origFireRate;}
+	//else {fireRate = origFireRate;}
 
 		for (var i = 0; i < Input.touchCount; ++i) {
 			if (Input.GetTouch(i).phase == TouchPhase.Began || Input.GetTouch(i).phase == TouchPhase.Moved || Input.GetTouch(i).phase == TouchPhase.Stationary) {
