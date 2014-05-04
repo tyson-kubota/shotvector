@@ -12,6 +12,7 @@ var hitMarker : GameObject;
 var hitPos : Vector3;
 var hitNormal : Vector3;
 var hitDamage : ProjectileDamage;
+var myParticles : ParticleSystem;
 
 var myPoolObject : PoolObject;
 var myShotObject : CreateShot;
@@ -39,6 +40,9 @@ var moveForwardScript : MoveForward;
 function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	HPColor = Color.white;
+	if (transform.particleSystem) {
+		myParticles = transform.particleSystem;
+	}
 }
 
 function OnCollisionEnter (hit : Collision) {
@@ -155,14 +159,11 @@ function DestroyBody() {
 
 
 function ShowDamageSparks( particleDuration : float ) {
-
-	if (transform.particleSystem) {
-		var myParticles : ParticleSystem = transform.particleSystem;
+	if (myParticles) {
 		myParticles.Play();
 		yield WaitForSeconds(particleDuration);
 		myParticles.Stop();
 	}
-
 }
 
 
