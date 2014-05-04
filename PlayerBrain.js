@@ -100,6 +100,7 @@ function ReceiveDamage (damageReceived : int) {
 	
 	// if using sequence of damaged player meshes
 	ShowCurrentHP(currentHP, true);
+	ShowDamageSparks(1.0);
 	
 	// or just damaged color lerping
 	//ShowCurrentHP(currentHP, false);
@@ -151,7 +152,20 @@ function DestroyBody() {
 	//BodyObject.SetActive(false);
 	//BodyMeshCollider.SetActive(false);
 }
-	
+
+
+function ShowDamageSparks( particleDuration : float ) {
+
+	if (transform.particleSystem) {
+		var myParticles : ParticleSystem = transform.particleSystem;
+		myParticles.Play();
+		yield WaitForSeconds(particleDuration);
+		myParticles.Stop();
+	}
+
+}
+
+
 function ShowShotDamage() {
 	BodyColor.FlashColorsPlayer(0.6);
 	yield WaitForSeconds(0.1);
