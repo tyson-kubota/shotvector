@@ -7,6 +7,8 @@ var origColor : Color;
 var burstColor : Color;
 
 var lerpableColor : Color;
+var lerpableColorA : Color;
+var lerpableColorB : Color;
 var healthColor : Color;
 
 var mesh : Mesh;
@@ -107,4 +109,52 @@ function FlashColorsPlayer (timer : float) : IEnumerator {
 
     yield WaitForSeconds (timer);
  
+}
+
+// function LerpColors (timer : float, colorA: Color, colorB : Color) {
+//     var colors : Color32[] = new Color32[uv.Length];
+
+//     var startA = yZeroVal;
+//     var startB = yOneVal;
+//     var i = 0.0;
+//     var step = 1.0/timer;
+    
+//     while (i <= 1.0) { 
+//         i += step * Time.deltaTime;
+//         lerpableColor = Color.Lerp(startA, colorA, i);
+//         lerpableColor = Color.Lerp(startB, colorB, i);
+//         gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+//         yield;
+                
+//         }
+
+//     yield WaitForSeconds (timer);
+ 
+// }
+
+function LerpColors (timer : float, colorA: Color, colorB : Color) {
+    mesh = GetComponent(MeshFilter).mesh;
+    vertices = mesh.vertices;
+    uv = mesh.uv;
+    var colors : Color32[] = new Color32[uv.Length];
+    var i = 0.0;
+    var step = 1.0/timer;
+
+    var startA = yZeroVal;
+    var startB = yOneVal;
+
+     while (i <= 1.0) { 
+        i += step * Time.deltaTime;
+        lerpableColorA = Color.Lerp(startA, colorA, i);
+        lerpableColorB = Color.Lerp(startB, colorB, i);
+        for (var a = 0; a < uv.Length;a++)
+        colors[a] = Color.Lerp(lerpableColorA,lerpableColorB, uv[a].x); 
+        mesh.colors32 = colors;
+
+        yield;
+                
+        }
+
+        yield WaitForSeconds (timer);
+
 }

@@ -5,10 +5,17 @@
 var lerpTime : float;
 var color1 : Color;
 var color2 : Color;
+var Backdrop : GameObject;
+
+var colorA : Color;
+var colorB : Color;
 
 function OnTriggerEnter (other : Collider) {
  if (other.gameObject.tag == "Player") {
      LerpFog(lerpTime);
+     if (Backdrop) {
+        LerpBackdrop(lerpTime, colorA, colorB);
+     }
  }
 }
 
@@ -31,4 +38,9 @@ function LerpFog (timer : float) {
 
     yield WaitForSeconds (timer);
  
+}
+
+function LerpBackdrop (timer : float, colorA : Color, colorB: Color) {
+    var BackdropColors = Backdrop.GetComponent(SetVertexColors);
+    BackdropColors.LerpColors(timer, color1, color2);
 }

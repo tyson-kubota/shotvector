@@ -9,7 +9,7 @@ var hoverError : float;
 function Start () {
 //	floorObject = gameObject;
 	//Transform.translate(floorObject.distance);
-	MyLayerMask = (1 << LayerMask.NameToLayer("landscape"));
+	MyLayerMask = (1 << LayerMask.NameToLayer("landscape")) | (1 << LayerMask.NameToLayer("landscape-alt")) ;
 }
 
 function Update () {
