@@ -16,6 +16,7 @@ var myParticles : ParticleSystem;
 
 var myPoolObject : PoolObject;
 var myShotObject : CreateShot;
+var myEnviroHazard : EnviroHazard;
 
 var PlayerShooter : PlayerShot;
 var ShotUpgrade : ShotPowerup;
@@ -75,6 +76,7 @@ function OnCollisionEnter (hit : Collision) {
 }
 
 function OnTriggerEnter (other : Collider) {
+	//myEnviroHazard = null;
 	if (other.gameObject.tag == "HealthPowerup") {
 		HealthToAdd = other.gameObject.GetComponent(HealthPowerup);
 		if (HealthToAdd) {AddHealth(HealthToAdd.nutrition);}
@@ -91,11 +93,18 @@ function OnTriggerEnter (other : Collider) {
 		myPoolObject = other.gameObject.GetComponent(PoolObject);
 		myShotObject = other.gameObject.GetComponent(CreateShot);
 		
+		// if (other.gameObject.layer == LayerMask.NameToLayer("enviro-hazard")) {
+		// 	myEnviroHazard = other.gameObject.GetComponent(EnviroHazard);
+		// }
 		if (myPoolObject) {
 			//Trigger-projectiles should keep going, not disappear immediately
 			//myShotObject.myMesh.renderer.enabled = false;
 			hitDamage.enabled = false;
 		}
+		// else if (myEnviroHazard) {
+		// 	other.gameObject.renderer.enabled = false;
+		// 	myEnviroHazard.ShowEnviroDamage();
+		// }
 		else {Destroy(other.gameObject);}
 	}
 
