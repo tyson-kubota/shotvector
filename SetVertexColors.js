@@ -41,6 +41,9 @@ function Start ()
         colors[i] = Color.Lerp(yZeroVal,yOneVal, uv[i].x); 
  
     mesh.colors32 = colors;
+
+    lerpableColorA = yZeroVal;
+    lerpableColorB = yOneVal;
 }
 
 // function UpdateColors () {
@@ -140,8 +143,8 @@ function LerpColors (timer : float, colorA: Color, colorB : Color) {
     var i = 0.0;
     var step = 1.0/timer;
 
-    var startA = yZeroVal;
-    var startB = yOneVal;
+    var startA = lerpableColorA;
+    var startB = lerpableColorB;
 
      while (i <= 1.0) { 
         i += step * Time.deltaTime;
