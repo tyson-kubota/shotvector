@@ -5,6 +5,7 @@ var myObject : GameObject;
 var MyLayerMask : int;
 var raycastDepth : int = 5000;
 var nextChunkObj : GameObject;
+var nextChunkObj2 : GameObject;
 var nextChunk : LoopedLevelChunk;
 var prevChunk : LoopedLevelChunk;
 
@@ -14,9 +15,10 @@ function Start () {
 
 function OnTriggerEnter (other : Collider) {
     // Instantiate(nextChunk, Vector3(other.gameObject.transform.position.x, 0, 0), Quaternion.identity);
-    Debug.Log("you hit the divider!");
+    Debug.Log("you hit the level chunk-spawning divider!");
     //Instantiate(nextChunk, Vector3(transform.position.x, 0, 0), Quaternion.identity);
-    var spawnedChunk : GameObject = PoolManager.Spawn(nextChunkObj.name);
+    var ChunkToSpawn : GameObject = Random.value < .5 ? nextChunkObj : nextChunkObj2;
+    var spawnedChunk : GameObject = PoolManager.Spawn(ChunkToSpawn.name);
     spawnedChunk.transform.position = Vector3(transform.position.x, 0, 0);
     spawnedChunk.transform.rotation = Quaternion.identity;
 
