@@ -1,16 +1,16 @@
 ﻿#pragma strict
 
-var myPoolObject : PoolObject;
-var myObject : GameObject;
-var MyLayerMask : int;
-var raycastDepth : int = 5000;
+//var myPoolObject : PoolObject;
+//var myObject : GameObject;
+//var MyLayerMask : int;
+//var raycastDepth : int = 5000;
 var nextChunkObj : GameObject;
 var nextChunkObj2 : GameObject;
-var nextChunk : LoopedLevelChunk;
+//var nextChunk : LoopedLevelChunk;
 var prevChunk : LoopedLevelChunk;
 
 function Start () {
-    MyLayerMask = (1 << LayerMask.NameToLayer("LevelChunkLayer"));
+    //MyLayerMask = (1 << LayerMask.NameToLayer("LevelChunkLayer"));
 }
 
 function OnTriggerEnter (other : Collider) {
