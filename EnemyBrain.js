@@ -3,11 +3,18 @@
 var BodyObject : GameObject;
 var BodyMeshCollider : GameObject;
 var ExplosionBody : GameObject;
+var ExplosionParticles : ParticleSystem;
+var PoolableExplosionBody : GameObject;
+var EnemyPoolObject : PoolObject;
+var BodyMesh : GameObject;
+var BodyColor : SetVertexColors;
+
 var alive : boolean = true;
 var ShotLauncher : EnemyShot;
 
 var totalDamage : int = 0;
 var MyHP : int;
+var MaxHP : int;
 
 private var MyLayerMask : int;
 private var ExplosionCheckLayerMask : int;
@@ -18,10 +25,23 @@ private var hasAlreadyExploded : boolean = false;
 var explodeDelay : float = 0.2;
 //var explodeParent : GameObject;
 
-function Start () {
+function Awake () {
+	MaxHP = MyHP;
 	//BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	MyLayerMask = (1 << LayerMask.NameToLayer("EnemyLayer"));
 	ExplosionCheckLayerMask = (1 << LayerMask.NameToLayer("ExplosionCheck"));
+	if (transform.particleSystem) {ExplosionParticles = transform.particleSystem;}
+}
+
+function Start () {
+	MyHP = MaxHP;
+	//Debug.Log("I have [re]spawned");
+	alive = true;
+	if (BodyMesh) {BodyColor = BodyMesh.GetComponent(SetVertexColors);}
+	BodyObject.SetActive(true);
+	BodyMeshCollider.SetActive(true);
+	if (PoolableExplosionBody) {PoolableExplosionBody.SetActive(false);}
+	if (ExplosionParticles) {ExplosionParticles.Stop();}
 }
 
 // function OnTriggerEnter (other : Collider) {
@@ -44,7 +64,26 @@ function ReceiveDamage (damageReceived : int) {
 		Debug.Log(BodyObject.name + " receiving " + damageReceived + " points of damage.");
 	#endif
 
-	if (totalDamage >= MyHP) {DestroyBody(); alive = false;}
+	if (totalDamage >= MyHP) {DestroyBody(); Die();}
+}
+
+function Die() {
+	alive = false;
+	totalDamage = 0;
+	if (EnemyPoolObject) {
+		yield WaitForSeconds(1.0);
+		alive = true;
+		PoolManager.Despawn(EnemyPoolObject.gameObject);
+	}
+	//Resurrect();
+}
+
+function Resurrect() {
+	alive = true;
+	totalDamage = 0;
+	if (EnemyPoolObject) {
+		PoolManager.Despawn(EnemyPoolObject.gameObject);
+	}
 }
 
 function DestroyBody() {
@@ -52,7 +91,8 @@ function DestroyBody() {
 	if (ShotLauncher) {ShotLauncher.StopLaunchingProjectile(true);}
 	BodyObject.SetActive(false);
 	BodyMeshCollider.SetActive(false);
-	ExplosionBody.SetActive(true);
+	
+	if (ExplosionParticles) {ExplosionParticles.Play();}
 	AddForceToExploded();
 	if (explodeChildren == true && hasAlreadyExploded == false) {
 		MultipleExplosions();
@@ -62,6 +102,19 @@ function DestroyBody() {
 		#endif
 		//explodeParent.SendMessage("DestroyChildren", SendMessageOptions.DontRequireReceiver);
 	}
+	
+	if (PoolableExplosionBody) {
+		PoolableExplosionBody.SetActive(true);
+		if (PoolableExplosionBody.animation) {PoolableExplosionBody.animation.Play();}
+	}
+	else {ExplosionBody.SetActive(true);}
+	
+	if (BodyColor) {BodyColor.RestoreColors();}
+
+	// if (EnemyPoolObject) {
+	// 	yield WaitForSeconds(1.0);
+	// 	PoolManager.Despawn(EnemyPoolObject.gameObject);
+	// }
 }
 
 function AddForceToExploded() {

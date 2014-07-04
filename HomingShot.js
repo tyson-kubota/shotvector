@@ -5,9 +5,11 @@ var projectileVelocity : float = 1200;
 var homingRange : float = 3000;
 var turn : float = 20;
 var target : Transform;
+var PlayerLayer : int;
 
 function Start() {
 	projectile = transform;
+	PlayerLayer = LayerMask.NameToLayer("PlayerLayer");
 }
 
 function FixedUpdate()
@@ -30,7 +32,7 @@ function TargetSearch() {
 
 	for (var hit : Collider in colliders) {
 	//for (var i = 0; i < colliders.Length; i++) {
-		if (hit && hit.gameObject.tag == "Player") {
+		if (hit && hit.gameObject.tag == "Player" && hit.gameObject.layer == PlayerLayer) {
 			//Debug.Log("you found a player target!");
 			target = hit.transform;
 		}

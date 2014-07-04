@@ -57,15 +57,16 @@ function Start ()
 // }
 
 
-// function RestoreColors () {
-//     var colors : Color32[] = new Color32[uv.Length];
+function RestoreColors () {
+    // var colors : Color32[] = new Color32[uv.Length];
   
-//     // Instead if vertex.y we use uv.x
-//     for (var i = 0; i < uv.Length;i++)
-//         colors[i] = Color.Lerp(yZeroVal,yOneVal, uv[i].x); 
+    // for (var i = 0; i < uv.Length;i++)
+    //     colors[i] = Color.Lerp(yZeroVal,yOneVal, uv[i].x); 
  
-//     mesh.colors32 = colors;
-// }
+    // mesh.colors32 = colors;
+    lerpableColor = origColor;
+    gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+}
 
 // lerpedColor = Color.Lerp(Color.white, Color.black, Time.time);
 

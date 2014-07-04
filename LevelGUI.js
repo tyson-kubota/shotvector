@@ -18,14 +18,16 @@ function Start () {
 function OnGUI()
 {
  
-    //makes a GUI button at coordinates 10, 100, and a size of 200x40
     if(GUI.Button (Rect (20,(Screen.height - 80),100,60),"Restart"))
     {
-       //Loads a level
       Application.LoadLevel(Application.loadedLevel);
     }
 
-    //makes a GUI button at coordinates 10, 100, and a size of 200x40
+    if(GUI.Button (Rect ((Screen.width/2),(Screen.height - 80),100,60),"Skip"))
+    {
+      transform.position.x = 17600;
+    }
+
     if(GUI.Button (Rect ((Screen.width - 120),(Screen.height - 80),100,60),"Slomo"))
     {
     	if (inSloMo) {EndSloMo();}

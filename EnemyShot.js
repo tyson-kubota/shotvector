@@ -24,6 +24,28 @@ function OnTriggerEnter (other : Collider) {
 	}
 }
 
+function OnTriggerStay (other : Collider) {
+	if (startedShooting == false) {
+		if (other.gameObject.tag == "Player" && Brain.alive) {
+			startedShooting = true;
+			InvokeRepeating("LaunchProjectile", 0.1, timeBetweenShots);
+		}
+	}
+}
+
+function OnTriggerExit (other : Collider) {
+	if (other.gameObject.tag == "Player" && startedShooting == true) {
+		StopLaunchingProjectile(false);
+	}
+}
+
+function OnBecameInvisible () {
+	if (startedShooting == true) {
+		StopLaunchingProjectile(true);
+	}
+	//Brain.Die();
+}
+
 // function OnBecameVisible () {
 // 	if (startedShooting == false && Brain.alive) {
 // 		startedShooting = true;
@@ -31,11 +53,10 @@ function OnTriggerEnter (other : Collider) {
 // 	}
 // }
 
-function OnBecameInvisible () {
-	if (startedShooting == true) {
-		StopLaunchingProjectile(false);
-		startedShooting = false;
-	}
+function StopLaunchingProjectile (dead : boolean) {
+	startedShooting = false;
+	CancelInvoke("LaunchProjectile");
+	// if (dead) {Brain.Die();}
 }
 
 function LaunchProjectile () {
@@ -72,18 +93,6 @@ function LaunchProjectile () {
 		//instance.rigidbody.velocity = randRot;
 		//instance.rigidbody.velocity = PlayerLocation.pos;
 		if (instance.rigidbody) {instance.rigidbody.velocity = shotDirection;}
-	}
-}
-
-function StopLaunchingProjectile (dead : boolean) {
-	CancelInvoke("LaunchProjectile");
-	//if (dead) {isAlive = false;}
-}
-
-function OnTriggerExit (other : Collider) {
-	if (other.gameObject.tag == "Player" && startedShooting == true) {
-		StopLaunchingProjectile(false);
-		startedShooting = false;
 	}
 }
 

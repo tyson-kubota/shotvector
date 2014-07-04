@@ -22,6 +22,8 @@ var colorF : Color;
 var colorG : Color;
 var colorH : Color;
 
+var PlayerLayer : int;
+
 function Awake() {
     if (BackdropLerp) {Backdrop = GameObject.Find("backdrop-quad");}
     colorG = color1;
@@ -29,11 +31,11 @@ function Awake() {
 }
 
 function Start () {
-
+    PlayerLayer = LayerMask.NameToLayer("PlayerLayer");
 }
 
 function OnTriggerEnter (other : Collider) {
- if (other.gameObject.tag == "Player") {
+ if (other.gameObject.tag == "Player" && other.gameObject.layer == PlayerLayer) {
      if (Randomize) {RandomizeColors();}
      LerpFog(lerpTime);
      if (Backdrop) {
