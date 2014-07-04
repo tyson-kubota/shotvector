@@ -40,8 +40,6 @@ function Start () {
 	if (BodyMesh) {BodyColor = BodyMesh.GetComponent(SetVertexColors);}
 	BodyObject.SetActive(true);
 	BodyMeshCollider.SetActive(true);
-	if (PoolableExplosionBody) {PoolableExplosionBody.SetActive(false);}
-	if (ExplosionParticles) {ExplosionParticles.Stop();}
 }
 
 // function OnTriggerEnter (other : Collider) {
@@ -73,6 +71,10 @@ function Die() {
 	if (EnemyPoolObject) {
 		yield WaitForSeconds(1.0);
 		alive = true;
+		
+		if (PoolableExplosionBody) {PoolableExplosionBody.SetActive(false);}
+		if (ExplosionParticles) {ExplosionParticles.Stop();}
+
 		PoolManager.Despawn(EnemyPoolObject.gameObject);
 	}
 	//Resurrect();
