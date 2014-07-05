@@ -20,9 +20,10 @@ function OnTriggerEnter (other : Collider) {
         Debug.Log("you hit the Enemy spawn point!");
         #endif
     
-        var EnemyToSpawn : GameObject = Random.value < .75 ? EnemyObj : EnemyObj2;
+        var EnemyToSpawn : GameObject = Random.value < .65 ? EnemyObj : EnemyObj2;
         var spawnedEnemy : GameObject = PoolManager.Spawn(EnemyToSpawn.name);
-        spawnedEnemy.transform.position = Vector3(transform.position.x, 0, 0);
+        //spawnedEnemy.transform.position = Vector3(transform.position.x, 0, 0);
+        spawnedEnemy.transform.localPosition = transform.position;
         //spawnedEnemy.transform.rotation = Quaternion.identity;
 
         //to detach from parent, once positioned

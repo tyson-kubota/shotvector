@@ -9,10 +9,13 @@ var isBeingHit : boolean = false;
 var myPoolObject : PoolObject;
 var myTrailObject : TrailRenderer;
 var myShotObject : CreateShot;
+var PlayerLayer : int;
 
 function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	Brain = BrainObj.GetComponent(EnemyBrain);
+    PlayerLayer = LayerMask.NameToLayer("PlayerLayer");
+
 }
 
 // function OnTriggerEnter (other : Collider) {
@@ -39,6 +42,11 @@ function OnTriggerEnter (other : Collider) {
 		}
 		else {Destroy(other.gameObject);}
 	}
+	else if (other.gameObject.tag == "Despawner" && other.gameObject.layer == PlayerLayer) {
+		//Debug.Log("dying via despawner trigger");
+		Brain.Die();
+	}
+
 }
 
 function OnCollisionEnter (hit : Collision) {
