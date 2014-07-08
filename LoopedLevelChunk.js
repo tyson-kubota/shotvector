@@ -15,7 +15,9 @@ function OnBecameVisible () {
 function OnBecameInvisible () {
     if (isSolid == true && readyToHide == true) {
         isSolid = false;
-        Debug.Log("Level chunk " + myPoolObject.name + " is now invisible." );
+        #if UNITY_EDITOR
+            Debug.Log("Level chunk " + myPoolObject.name + " is now invisible." );
+        #endif
         yield WaitForSeconds(2.0);
         PoolManager.Despawn(myPoolObject.gameObject);
     }
