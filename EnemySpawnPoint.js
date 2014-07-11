@@ -32,3 +32,9 @@ function OnTriggerEnter (other : Collider) {
         //hasSpawned = true;
     }
 }
+
+function OnTriggerExit (other : Collider) {
+    if (other.gameObject.tag == "Player" && hasSpawned == true) {
+        hasSpawned = false;
+    }
+}
