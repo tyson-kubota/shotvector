@@ -36,5 +36,8 @@ function OnTriggerEnter (other : Collider) {
 function OnTriggerExit (other : Collider) {
     if (other.gameObject.tag == "Player" && hasSpawned == true) {
         hasSpawned = false;
+        #if UNITY_EDITOR
+            Debug.Log("Spawn point has reset at " + transform.position );
+        #endif        
     }
 }
