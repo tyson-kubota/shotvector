@@ -30,7 +30,7 @@ function Awake () {
 	//BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	MyLayerMask = (1 << LayerMask.NameToLayer("EnemyLayer"));
 	ExplosionCheckLayerMask = (1 << LayerMask.NameToLayer("ExplosionCheck"));
-	if (transform.particleSystem) {ExplosionParticles = transform.particleSystem;}
+	if (transform.GetComponent.<ParticleSystem>()) {ExplosionParticles = transform.GetComponent.<ParticleSystem>();}
 }
 
 function Start () {
@@ -107,7 +107,7 @@ function DestroyBody() {
 	
 	if (PoolableExplosionBody) {
 		PoolableExplosionBody.SetActive(true);
-		if (PoolableExplosionBody.animation) {PoolableExplosionBody.animation.Play();}
+		if (PoolableExplosionBody.GetComponent.<Animation>()) {PoolableExplosionBody.GetComponent.<Animation>().Play();}
 	}
 	else {ExplosionBody.SetActive(true);}
 	
@@ -124,8 +124,8 @@ function AddForceToExploded() {
 	var colliders : Collider[] = Physics.OverlapSphere (explosionPos, ExplosionRadius, MyLayerMask);
 	
 	for (var hit : Collider in colliders) {
-		if (hit && hit.rigidbody) {
-			hit.rigidbody.AddExplosionForce(ExplosionPower, explosionPos, ExplosionRadius, 3.0);
+		if (hit && hit.GetComponent.<Rigidbody>()) {
+			hit.GetComponent.<Rigidbody>().AddExplosionForce(ExplosionPower, explosionPos, ExplosionRadius, 3.0);
 		}
 		//hit.collider.gameObject.SendMessage("DestroyBody", SendMessageOptions.DontRequireReceiver);
 	}
@@ -138,10 +138,10 @@ function MultipleExplosions() {
 	
 	for (var hit : Collider in colliders) {
 		//if (hit && hit.rigidbody && hit != hit) {
-       if (hit == collider || !hit) { // skip this collider and the null ones
+       if (hit == GetComponent.<Collider>() || !hit) { // skip this collider and the null ones
             continue;
         }
-        if (hit.rigidbody){
+        if (hit.GetComponent.<Rigidbody>()){
         	yield WaitForSeconds(explodeDelay);
 			hit.gameObject.SendMessage("DestroyBody", SendMessageOptions.DontRequireReceiver );
 			#if UNITY_EDITOR

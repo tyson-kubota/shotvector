@@ -21,6 +21,7 @@ function OnTriggerEnter (other : Collider) {
 
         #if UNITY_EDITOR
         Debug.Log("you hit the level chunk-spawning divider!");
+        Debug.Log("next position is" + transform.position.x);
         #endif
 
         var ChunkToSpawn : GameObject = Random.value < .5 ? nextChunkObj : nextChunkObj2;

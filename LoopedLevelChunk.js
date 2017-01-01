@@ -8,6 +8,7 @@ var myObject : GameObject;
 function OnBecameVisible () {
     if (isSolid == false) {
         isSolid = true;
+        readyToHide = false;
         myPoolObject = myObject.GetComponent(PoolObject);
     }
 }

@@ -11,10 +11,10 @@ function Update () {
 
 function OnTriggerEnter (other : Collider) {
 	if (other.gameObject.tag == "Player") {
-		if (animation) {animation.Play();}
-		if (transform.particleSystem) {
-			Particles(transform.particleSystem); 
-			transform.renderer.enabled = false;
+		if (GetComponent.<Animation>()) {GetComponent.<Animation>().Play();}
+		if (transform.GetComponent.<ParticleSystem>()) {
+			Particles(transform.GetComponent.<ParticleSystem>()); 
+			transform.GetComponent.<Renderer>().enabled = false;
 		}
 	}
 

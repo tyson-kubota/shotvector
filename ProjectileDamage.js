@@ -12,7 +12,7 @@ function Update () {
 }
 
 function ToggleKinematic() {
-	myGameObject.rigidbody.isKinematic = true;
+	myGameObject.GetComponent.<Rigidbody>().isKinematic = true;
 	yield WaitForSeconds(Time.deltaTime);
-	myGameObject.rigidbody.isKinematic = false;
+	myGameObject.GetComponent.<Rigidbody>().isKinematic = false;
 }

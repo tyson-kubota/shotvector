@@ -11,7 +11,7 @@ function OnEnable () {
 }
 
 function CreateShot () {
-	myMesh.renderer.enabled = false;
+	myMesh.GetComponent.<Renderer>().enabled = false;
 	yield WaitForSeconds(0.25);
-	myMesh.renderer.enabled = true;
+	myMesh.GetComponent.<Renderer>().enabled = true;
 }

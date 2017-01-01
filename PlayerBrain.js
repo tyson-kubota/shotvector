@@ -44,8 +44,8 @@ function Start () {
 	BodyColor = BodyMesh.GetComponent(SetVertexColors);
 	HPColor = Color.white;
 	myFireRate = PlayerShooter.fireRate;
-	if (transform.particleSystem) {
-		myParticles = transform.particleSystem;
+	if (transform.GetComponent.<ParticleSystem>()) {
+		myParticles = transform.GetComponent.<ParticleSystem>();
 	}
 }
 
@@ -67,7 +67,7 @@ function OnCollisionEnter (hit : Collision) {
 		myShotObject = hit.gameObject.GetComponent(CreateShot);
 		
 		if (myPoolObject) {
-			myShotObject.myMesh.renderer.enabled = false;
+			myShotObject.myMesh.GetComponent.<Renderer>().enabled = false;
 			hitDamage.enabled = false;
 		}
 		else {Destroy(hit.gameObject);}

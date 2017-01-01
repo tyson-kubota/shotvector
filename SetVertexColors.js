@@ -65,7 +65,7 @@ function RestoreColors () {
  
     // mesh.colors32 = colors;
     lerpableColor = origColor;
-    gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+    gameObject.GetComponent.<Renderer>().material.SetColor ("_Color", lerpableColor);
 }
 
 // lerpedColor = Color.Lerp(Color.white, Color.black, Time.time);
@@ -82,7 +82,7 @@ function FlashColors (timer : float) {
     while (i <= 1.0) { 
         i += step * Time.deltaTime;
         lerpableColor = Color.Lerp(end, start, i);
- 		gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+ 		gameObject.GetComponent.<Renderer>().material.SetColor ("_Color", lerpableColor);
         yield;
                 
     	}
@@ -106,7 +106,7 @@ function FlashColorsPlayer (timer : float) : IEnumerator {
     while (i <= 1.0) { 
         i += step * Time.deltaTime;
         lerpableColor = Color.Lerp(end, start, i);
-        gameObject.renderer.material.SetColor ("_Color", lerpableColor);
+        gameObject.GetComponent.<Renderer>().material.SetColor ("_Color", lerpableColor);
         yield;
                 
         }

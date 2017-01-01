@@ -7,8 +7,8 @@ var hitDamage : ProjectileDamage;
 var hasDamaged : boolean = false;
 
 function Start () {
-	myRenderer = transform.gameObject.renderer;
-	if (transform.particleSystem) {myParticles = transform.particleSystem;}
+	myRenderer = transform.gameObject.GetComponent.<Renderer>();
+	if (transform.GetComponent.<ParticleSystem>()) {myParticles = transform.GetComponent.<ParticleSystem>();}
 	hitDamage = gameObject.GetComponent(ProjectileDamage);
 }
 

@@ -33,15 +33,15 @@ var hoverDamp = 0.5;
 
 function Start () {
 	// Fairly high drag makes the object easier to control.
-	rigidbody.drag = 0.5;
-	rigidbody.angularDrag = 0.5;
+	GetComponent.<Rigidbody>().drag = 0.5;
+	GetComponent.<Rigidbody>().angularDrag = 0.5;
 }
 
 
 function FixedUpdate () {
 	// Push/turn the object based on arrow key input.
-	rigidbody.AddForce(Input.GetAxis("Vertical") * moveForce * transform.forward);
-	rigidbody.AddTorque(Input.GetAxis("Horizontal") * rotateTorque * Vector3.up);
+	GetComponent.<Rigidbody>().AddForce(Input.GetAxis("Vertical") * moveForce * transform.forward);
+	GetComponent.<Rigidbody>().AddTorque(Input.GetAxis("Horizontal") * rotateTorque * Vector3.up);
 	
 	var hit: RaycastHit;
 	var downRay = new Ray(transform.position, -Vector3.up);
@@ -57,9 +57,9 @@ function FixedUpdate () {
 		if (hoverError > 0) {
 			// Subtract the damping from the lifting force and apply it to
 			// the rigidbody. 
-			var upwardSpeed = rigidbody.velocity.y;
+			var upwardSpeed = GetComponent.<Rigidbody>().velocity.y;
 			var lift = hoverError * hoverForce - upwardSpeed * hoverDamp;
-			rigidbody.AddForce(lift * Vector3.up);
+			GetComponent.<Rigidbody>().AddForce(lift * Vector3.up);
 		}
 	}
 }
